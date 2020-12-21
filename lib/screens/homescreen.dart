@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../widgets/assets_thumbnail.dart';
+import 'package:flutter/services.dart';
 import 'dart:math';
 
 class HomeScreen extends StatefulWidget {
@@ -41,6 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.purple,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.purple,
+    ));
     final size =MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(

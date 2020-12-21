@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'screens/homescreen.dart';
-
+import 'package:flutter/services.dart';
 import 'package:photo_manager/photo_manager.dart';
 void main() {
   runApp(MyApp());
@@ -31,8 +29,13 @@ class MyApp extends StatelessWidget {
 class PermScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.purple,
+      statusBarBrightness: Brightness.dark,
+    ));
     return Scaffold(
       appBar: AppBar(
+        
         backgroundColor: Colors.white,
         elevation: 0,
         /* actions: [
