@@ -45,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.purple,
       statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.purple,
     ));
     final size =MediaQuery.of(context).size;
     return Scaffold(
