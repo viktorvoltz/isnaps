@@ -3,6 +3,7 @@ import 'package:photo_manager/photo_manager.dart';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'image_widget.dart';
+import 'video_widget.dart';
 
 class AssetThumbnail extends StatelessWidget {
   final AssetEntity asset;
@@ -28,6 +29,8 @@ class AssetThumbnail extends StatelessWidget {
                     context, 
                     MaterialPageRoute(builder: (_) => ImageWidget(imageFile: asset.file,))
                     );
+                } else {
+                  return VideoWidget(videoFile: asset.file);
                 }
               },
               child: Stack(

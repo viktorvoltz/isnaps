@@ -38,11 +38,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.purple,
       statusBarBrightness: Brightness.dark,
     ));
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.purple,
+      statusBarBrightness: Brightness.dark,
+    ));*/
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.greenAccent,
