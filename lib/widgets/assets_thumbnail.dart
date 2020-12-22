@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
+import 'image_widget.dart';
 
 class AssetThumbnail extends StatelessWidget {
   final AssetEntity asset;
@@ -17,11 +18,18 @@ class AssetThumbnail extends StatelessWidget {
         future: asset.thumbData,
         builder: (_, snapshot) {
           final bytes = snapshot.data;
-          if (bytes == null) return CircularProgressIndicator();
+          if (bytes == null) return Container();
           // return Image.memory(bytes, fit: BoxFit.cover);
 
           return InkWell(
-              onTap: () {},
+              onTap: () {
+                if (asset.type == AssetType.image){
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (_) => ImageWidget(imageFile: asset.file,))
+                    );
+                }
+              },
               child: Stack(
                 children: [
                   Positioned.fill(
@@ -32,8 +40,8 @@ class AssetThumbnail extends StatelessWidget {
                       child: Container(
                         color: Colors.blue,
                         child: Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
+                          Icons.play_circle_filled,
+                          color: Colors.purple,
                         ),
                       ),
                     )
