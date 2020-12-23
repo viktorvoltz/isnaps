@@ -24,14 +24,15 @@ class AssetThumbnail extends StatelessWidget {
 
           return InkWell(
               onTap: () {
-                if (asset.type == AssetType.image){
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(builder: (_) => ImageWidget(imageFile: asset.file,))
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  if (asset.type == AssetType.image) {
+                    return ImageWidget(
+                      imageFile: asset.file,
                     );
-                } else {
-                  return VideoWidget(videoFile: asset.file);
-                }
+                  } else {
+                    return VideoWidget(videoFile: asset.file);
+                  }
+                }));
               },
               child: Stack(
                 children: [
