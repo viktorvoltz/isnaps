@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/homescreen.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'widgets/image_picker.dart';
 void main() {
   runApp(MyApp());
 }
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        
+        ImageSelector.routeName: (ctx) => ImageSelector(),
       },
       home: PermScreen(),
     );

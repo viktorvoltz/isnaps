@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../widgets/assets_thumbnail.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
+import '../widgets/image_picker.dart';
 
 class HomeScreen extends StatefulWidget {
   final routeName = '/homescreen';
@@ -46,6 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
 
+  
+
+
   @override
   Widget build(BuildContext context) {
     /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -54,14 +58,16 @@ class _HomeScreenState extends State<HomeScreen> {
     ));*/
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.greenAccent,
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
           actions: [
             IconButton(
-              icon: Icon(Icons.lock),
-              onPressed: () {},
+              icon: Icon(Icons.camera_alt),
+              onPressed: (){
+                Navigator.of(context).pushNamed(ImageSelector.routeName);
+              },
               color: Colors.purple,
             ),
             SizedBox(width: 100),
@@ -84,8 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: AssetThumbnail(asset: assets[index]));
           },
           staggeredTileBuilder: (index) => StaggeredTile.count(
-              assets[index].type == AssetType.video ? 2 :  1,
-              assets[index].type == AssetType.video ? 2 :  1),
+              assets[index].type == AssetType.video ? 2 : 1,
+              assets[index].type == AssetType.video ? 2 : 1),
           mainAxisSpacing: 3.5,
           crossAxisSpacing: 3.5,
         ));
