@@ -4,7 +4,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../widgets/assets_thumbnail.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
-import '../widgets/image_picker.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+
 
 class HomeScreen extends StatefulWidget {
   final routeName = '/homescreen';
@@ -17,6 +19,24 @@ class _HomeScreenState extends State<HomeScreen> {
   // Random rnd = new Random();
   int random = new Random().nextInt(2);
   List<AssetEntity> assets = [];
+
+  File _image;
+
+  Future<void> _imageFromCamera() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 100);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  Future<void> _imageFromGallery() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 100);
+    setState(() {
+      _image = image;
+    });
+  }
 
   void _fetchAssets() async {
     final albums = await PhotoManager.getAssetPathList(onlyAll: true);
@@ -66,7 +86,27 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.camera_alt),
               onPressed: (){
-                Navigator.of(context).pushNamed(ImageSelector.routeName);
+                showModalBottomSheet(
+        context: context,
+        builder: (BuildContext ctx) {
+          return SafeArea(
+              child: Container(
+            child: new Wrap(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.photo_library),
+                  title: Text('photo Library'),
+                  onTap: () => _imageFromGallery(),
+                ),
+                ListTile(
+                  leading: Icon(Icons.camera_alt),
+                  title: Text('camera'),
+                  onTap: () => _imageFromCamera(),
+                ),
+              ],
+            ),
+          ));
+        });
               },
               color: Colors.purple,
             ),
