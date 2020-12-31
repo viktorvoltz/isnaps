@@ -6,10 +6,13 @@ import 'package:flutter/services.dart';
 import 'dart:math';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as syspaths;
 
 
 class HomeScreen extends StatefulWidget {
   final routeName = '/homescreen';
+  
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -21,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<AssetEntity> assets = [];
 
   File _image;
+  File _storedImage;
 
   Future<void> _imageFromCamera() async {
     File image = await ImagePicker.pickImage(
@@ -28,6 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _image = image;
     });
+    final appDir = await syspaths.getApplicationDocumentsDirectory();
+    final fileName = path.basename(image.path);
+    await _storedImage.copy('${appDir.path}/$fileName');
   }
 
   Future<void> _imageFromGallery() async {
@@ -48,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     setState(() {
+      
       assets = recentAssets;
     });
   }
@@ -78,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ));*/
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
@@ -96,12 +104,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListTile(
                   leading: Icon(Icons.photo_library),
                   title: Text('photo Library'),
-                  onTap: () => _imageFromGallery(),
+                  onTap: (){
+                    _imageFromGallery();
+                    Navigator.pop(context);
+                  }
                 ),
                 ListTile(
                   leading: Icon(Icons.camera_alt),
                   title: Text('camera'),
-                  onTap: () => _imageFromCamera(),
+                  onTap: (){
+                    _imageFromCamera();
+                    Navigator.pop(context);
+                  }
                 ),
               ],
             ),
@@ -110,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               color: Colors.purple,
             ),
-            SizedBox(width: 100),
+            SizedBox(width: (size.width * 0.5) - 100),
             Container(
               child: FlatButton(
                 onPressed: () {},
