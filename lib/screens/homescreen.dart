@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     final appDir = await syspaths.getApplicationDocumentsDirectory();
     final fileName = path.basename(image.path);
-    await _storedImage.copy('${appDir.path}/$fileName');
+    await image.copy('${appDir.path}/$fileName');
   }
 
   Future<void> _imageFromGallery() async {
